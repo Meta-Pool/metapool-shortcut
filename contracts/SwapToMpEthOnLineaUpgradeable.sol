@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
+import {Initializable} from "";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 // import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IStaking} from "./interfaces/IStaking.sol";
 import {ITokenBridge} from "./interfaces/ITokenBridge.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract SwapToMpEthOnLinea is Ownable {
+contract SwapToMpEthOnLinea is Ownable, Initializable {
     using SafeERC20 for IERC20;
 
     uint256 public immutable chainId; /// Linea Mainnet 59144
