@@ -8,7 +8,7 @@ import {IStaking} from "./interfaces/IStaking.sol";
 import {ITokenBridge} from "./interfaces/ITokenBridge.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract SwapToMpEthOnLinea is Ownable, Initializable {
+contract SwapToMpEthOnLineaUpgradeable is Ownable, Initializable {
     using SafeERC20 for IERC20;
 
     uint256 public immutable chainId; /// Linea Mainnet 59144
