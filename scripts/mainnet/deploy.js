@@ -1,33 +1,22 @@
 const { ethers, upgrades } = require("hardhat");
 
-LINEA_CHAINID_SEPOLIA = "59141";
-MPETH_TOKEN_SEPOLIA = "0xB9860E8552F14Dc81ba08F2251d88179FAf81Ef5";
-LINEA_BRIDGE_SEPOLIA = "0x5a0a48389bb0f12e5e017116c1105da97e129142";
+LINEA_CHAINID = "59144";
+MPETH_TOKEN = "0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710";
+LINEA_BRIDGE = "0x051F1D88f0aF5763fB888eC4378b4D8B29ea3319";
 
 async function main() {
   const [deployer] = await ethers.getSigners();
 
-  const MpEthToken = await ethers.getContractFactory("MpEthToken");
   const SwapToMpEthOnLinea = await ethers.getContractFactory("SwapToMpEthOnLineaV1");
 
-  // Step 1 - Deploy mpETH token
-  // const MpDaoTokenContract = await ethers.getContractAt("MpDaoToken", MPETH_TOKEN_SEPOLIA);
-  // const MpEthTokenContract = await MpEthToken.connect(deployer).deploy(
-  //   "Meta Pool ETH",
-  //   "mpETH01"
-  // );
-  // await MpEthTokenContract.waitForDeployment();
-  // console.log("MPETH TOKEN MOCK: ", MpEthTokenContract.target);
-
-
-  // Step 2 - Deploy SwapToMpEthOnLinea
+  // Step 1 - Deploy SwapToMpEthOnLinea
   const ProxyContract = await upgrades.deployProxy(
     SwapToMpEthOnLinea,
     [
-      LINEA_CHAINID_SEPOLIA,
-      LINEA_BRIDGE_SEPOLIA,
-      MPETH_TOKEN_SEPOLIA,
-      deployer.address
+      LINEA_CHAINID,
+      LINEA_BRIDGE,
+      MPETH_TOKEN,
+      "0xf1552d1d7CD279A7B766F431c5FaC49A2fb6e361" // META POOL EVM
     ]
   );
   await ProxyContract.waitForDeployment();
@@ -36,7 +25,7 @@ async function main() {
   const adminAddress = await upgrades.erc1967.getAdminAddress(ProxyContract.target);
 
   // Summary
-  console.log("MpEthTokenContract: ", MPETH_TOKEN_SEPOLIA);
+  console.log("MpEthTokenContract: ", MPETH_TOKEN);
   console.log("ProxyAdminContract: ", adminAddress);
   console.log("ProxyContract:      ", ProxyContract.target);
   console.log("SwapToMpEthOnLineaV1 impl: ", SwapToMpEthOnLineaV1Implementation);

@@ -12,9 +12,9 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 contract SwapToMpEthOnLineaV1 is OwnableUpgradeable {
     using SafeERC20 for IERC20;
 
-    uint256 public chainId; /// Linea Mainnet 59144
-    address public bridge; /// 0x051F1D88f0aF5763fB888eC4378b4D8B29ea3319
-    address public mpeth; /// 0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710
+    uint256 public chainId;
+    address public bridge;
+    address public mpeth;
 
     uint256 public constant COMPLEXITY = 2;
     uint256 public constant BASE_FEE = 1000;
@@ -29,7 +29,7 @@ contract SwapToMpEthOnLineaV1 is OwnableUpgradeable {
         uint256 _chainId,
         address _bridge,
         address _mpeth,
-        address _owner /// 0xf1552d1d7CD279A7B766F431c5FaC49A2fb6e361
+        address _owner
     ) public initializer {
         __Ownable_init(_owner);
         chainId = _chainId;
