@@ -1,5 +1,7 @@
 # Swap mainnet Ether to Meta Pool mpETH token bridged to Linea L2
 
+<img src="./media/linea.png" width="500" height="250">
+
 This repository contains a Solidity smart contract designed to function as a proxy for staking Ethereum. The contract does not hold any balances or tokens itself; instead, it operates by receiving native Ethereum and staking it in the Meta Pool, a liquid staking protocol, then bridge the assets `mpETH` to the **Linea** Ethereum Layer 2. Users receive mpETH tokens in return, which are redeemable for Ethereum. The staked Ethereum is deployed into 32 ETH validator nodes.
 
 Users need to claim.
