@@ -12,32 +12,36 @@ import {SafeERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeE
 contract SwapToMpEthOnLineaV1 is Initializable, OwnableUpgradeable {
     using SafeERC20 for IERC20;
 
-    uint256 public chainId;
+    /// @dev Linea bridge address
     address public bridge;
     address public mpeth;
 
     uint256 public constant COMPLEXITY = 2;
     uint256 public constant BASE_FEE = 1000;
 
+    error InvalidAddress();
     error LessThanMinValue();
     error UnsuccessfulApproval();
 
     event NewSwapToMpEthOnLinea(address indexed _receiver, uint256 _amount);
 
-    /// @param _chainId eip-1344 Chain ID is a 256-bit value
+    constructor() { _disableInitializers(); }
+
     function initialize(
-        uint256 _chainId,
         address _bridge,
         address _mpeth,
         address _owner
     ) public initializer {
-        __Ownable_init(_owner);
-        chainId = _chainId;
+        if (_mpeth == address(0)
+            || _bridge == address(0)
+            || _owner == address(0)) revert InvalidAddress();
         bridge = _bridge;
         mpeth = _mpeth;
+        __Ownable_init(_owner);
     }
 
     function updateBridgeAddress(address _bridge) external onlyOwner returns (bool) {
+        if (_bridge == address(0) || _bridge == bridge) revert InvalidAddress();
         bridge = _bridge;
         return true;
     }
