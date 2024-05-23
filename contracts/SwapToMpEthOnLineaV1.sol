@@ -21,7 +21,6 @@ contract SwapToMpEthOnLineaV1 is Initializable, OwnableUpgradeable {
 
     error InvalidAddress();
     error LessThanMinValue();
-    error UnsuccessfulApproval();
 
     event NewSwapToMpEthOnLinea(address indexed _receiver, uint256 _amount);
 
